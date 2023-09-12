@@ -35,6 +35,7 @@ class Chomper(pygame.sprite.Sprite):
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
                     self.game.game_active = False
+                self.speed += 5
         elif self.direction == "left":
             if self.rect.left > 75:
                 self.rect.x -= self.speed
@@ -45,6 +46,7 @@ class Chomper(pygame.sprite.Sprite):
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
                     self.game.game_active = False
+                self.speed += 5
         elif self.direction == "up":
             if self.rect.top > 75:
                 self.rect.y -= self.speed
@@ -55,6 +57,7 @@ class Chomper(pygame.sprite.Sprite):
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
                     self.game.game_active = False
+                self.speed += 5
         elif self.direction == "down":
             if self.rect.bottom < 625:
                 self.rect.y += self.speed
@@ -65,16 +68,18 @@ class Chomper(pygame.sprite.Sprite):
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
                     self.game.game_active = False
+                self.speed += 5
 
     def deal_with_injury(self):
         self.image.fill("red")
-        self.image = pygame.transform.scale(self.image, (self.size + 20, self.size + 20))
+        self.image = pygame.transform.scale(self.image, (self.size + 10, self.size + 10))
         self.timer += 1
         if self.timer > 25:
             self.image.fill("blue")
             self.timer = 0
             self.hurt = False
             self.image = pygame.transform.scale(self.image, (self.size, self.size))
+            self.speed -= 5
 
     def grow(self):
         self.size += 3
