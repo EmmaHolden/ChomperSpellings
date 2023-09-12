@@ -1,6 +1,6 @@
 import random
 import pygame
-from game_variables import game_colours, x_coordinates, y_coordinates, spelling_words
+from game_variables import game_colours, x_coordinates, y_coordinates, spelling_words, game_font
 from itertools import product
 from chomper import Chomper
 from food import Food
@@ -35,7 +35,6 @@ class GameOver():
         if keys[pygame.K_SPACE]:
             self.game.new_game = True
 
-
     def restart_game(self):
         self.game.coordinates = list(product(x_coordinates, y_coordinates))
         self.game.spelling_word = random.choice(spelling_words).upper()
@@ -47,10 +46,12 @@ class GameOver():
         self.chomper.sprite.kill()
         self.game.current_letter_index = 0
         self.game.lives.lives = 3
-        self.game.game_active = True
         self.teleport_group.add(Teleporter("left", self.game))
         self.teleport_group.add(Teleporter("right", self.game))
         self.teleport_group.add(Teleporter("top", self.game))
         self.teleport_group.add(Teleporter("bottom", self.game))
         self.food.add(Food(self.game))
         self.chomper.add(Chomper())
+        self.game.timer = 300
+        self.game.spelling_word_shown = False
+        self.game.game_active = True

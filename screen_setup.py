@@ -22,6 +22,20 @@ class ScreenSetup():
         self.lose_message = game_font.render('Oops! You ran out of lives!', False, "black")
         self.win_message = game_font.render('Well done! You got all of the letters!', False, "black")
 
+
+    def get_timer(self):
+        timer_display = word_font.render(f'{round(self.game.timer / 60)}', False, "black")
+        self.game.screen_setup.screen.blit(timer_display, (500, 500))
+        self.game.timer -= 1
+        if self.game.timer < 0:
+            self.game.spelling_word_shown = True
+    def get_spelling_word(self):
+        self.spelling_word_display_title = game_font.render("Spelling Word: ", False, "black")
+        self.spelling_word_display = word_font.render(f'{self.game.spelling_word}', False, "black")
+        self.screen.blit(self.spelling_word_display_title, (400, 200))
+        self.screen.blit(self.spelling_word_display, (450, 350))
+
+
     def reveal_word(self):
         self.revealed_letters = self.game.spelling_word[0:self.game.current_letter_index]
         self.word_surface= game_font.render("Word:", False, "black")

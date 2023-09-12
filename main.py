@@ -2,7 +2,7 @@ import pygame
 import random
 from sys import exit
 from itertools import product
-from game_variables import game_font, game_colours, x_coordinates, y_coordinates, spelling_words
+from game_variables import game_font, game_colours, x_coordinates, y_coordinates, spelling_words, word_font
 from chomper import Chomper
 from food import Food
 from collision_handler import CollisionHandler
@@ -14,9 +14,11 @@ from game_over import GameOver
 
 class GameSetup():
     def __init__(self):
+        self.timer = 300
         self.game_active = False
         self.new_game = True
         self.coordinates = list(product(x_coordinates, y_coordinates))
+        self.spelling_word_shown = False
         self.spelling_word = random.choice(spelling_words).upper()
         self.current_letter_index = 0
         self.screen_setup = ScreenSetup(self)
@@ -52,13 +54,18 @@ while True:
                     if game.new_game:
                         game_over.restart_game()
     if game.game_active:
-        game.update()
-        chomper.draw(game.screen_setup.screen)
-        food.draw(game.screen_setup.screen)
-        chomper.update()
-        collision_handler.update()
-        enemy_group.draw(game.screen_setup.screen)
-        teleport_group.draw(game.screen_setup.screen)
+        if game.spelling_word_shown:
+            game.update()
+            chomper.draw(game.screen_setup.screen)
+            food.draw(game.screen_setup.screen)
+            chomper.update()
+            collision_handler.update()
+            enemy_group.draw(game.screen_setup.screen)
+            teleport_group.draw(game.screen_setup.screen)
+        else:
+            game.screen_setup.screen.fill(game_colours["red"])
+            game.screen_setup.get_spelling_word()
+            game.screen_setup.get_timer()
     else:
         if game.new_game:
             game_over.welcome_screen()
