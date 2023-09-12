@@ -16,7 +16,9 @@ class CollisionHandler():
             self.game.current_letter_index += 1
             self.game.score.increase_score()
             if self.game.current_letter_index < len(self.game.spelling_word):
-                self.handle_food_collision()
+                self.chomper.sprite.grow()
+                self.chomper.sprite.increase_speed(1)
+                self.food.sprite.relocate_food()
                 for item in self.enemy_group:
                     if item.letter == self.game.spelling_word[self.game.current_letter_index]:
                         item.update_letter()
@@ -57,12 +59,6 @@ class CollisionHandler():
                 self.chomper.sprite.direction = "up"
                 self.chomper.sprite.rect.x = random_coordinates[0]
                 self.chomper.sprite.rect.y = random_coordinates[1] - 50
-
-
-    def handle_food_collision(self):
-        self.chomper.sprite.grow()
-        self.chomper.sprite.increase_speed()
-        self.food.sprite.relocate_food()
 
     def update(self):
         self.check_food_collision()

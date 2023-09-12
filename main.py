@@ -60,7 +60,7 @@ while True:
                     text_speech.runAndWait()
     if game.game_active:
         if chomper.sprite.hurt == True:
-            chomper.sprite.display_chomper_injury()
+            chomper.sprite.timed_injury()
         if game.spelling_word_shown:
             game.update()
             chomper.draw(game.screen_setup.screen)

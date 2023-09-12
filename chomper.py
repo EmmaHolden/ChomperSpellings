@@ -56,17 +56,17 @@ class Chomper(pygame.sprite.Sprite):
             self.game.new_game = False
             self.game.game_active = False
         self.hurt = True
-        self.speed += 5
+        self.increase_speed(5)
         self.image.fill("red")
         self.image = pygame.transform.scale(self.image, (self.size + 10, self.size + 10))
-    def display_chomper_injury(self):
+    def timed_injury(self):
         self.hurt_timer += 1
         if self.hurt_timer > 25:
             self.image.fill("blue")
             self.hurt_timer = 0
             self.hurt = False
             self.image = pygame.transform.scale(self.image, (self.size, self.size))
-            self.speed -= 5
+            self.decrease_speed(5)
 
     def grow(self):
         self.size += 3
@@ -75,8 +75,11 @@ class Chomper(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (self.size, self.size))
         self.rect = self.image.get_rect(topleft=(current_x, current_y))
 
-    def increase_speed(self):
-        self.speed += 1
+    def increase_speed(self, amount):
+        self.speed += amount
+
+    def decrease_speed(self, amount):
+        self.speed -= amount
 
     def update(self):
         self.move()
