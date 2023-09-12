@@ -2,6 +2,8 @@ import pygame
 class Chomper(pygame.sprite.Sprite):
     def __init__(self, game):
         super().__init__()
+        self.timer = 0
+        self.hurt = False
         self.game = game
         self.speed = 6
         self.direction = "right"
@@ -28,6 +30,7 @@ class Chomper(pygame.sprite.Sprite):
                 self.rect.x += self.speed
             else:
                 self.direction = "left"
+                self.hurt = True
                 self.game.lives.decrease_lives()
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
@@ -37,6 +40,7 @@ class Chomper(pygame.sprite.Sprite):
                 self.rect.x -= self.speed
             else:
                 self.direction = "right"
+                self.hurt = True
                 self.game.lives.decrease_lives()
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
@@ -46,6 +50,7 @@ class Chomper(pygame.sprite.Sprite):
                 self.rect.y -= self.speed
             else:
                 self.direction = "down"
+                self.hurt = True
                 self.game.lives.decrease_lives()
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
@@ -55,10 +60,21 @@ class Chomper(pygame.sprite.Sprite):
                 self.rect.y += self.speed
             else:
                 self.direction = "up"
+                self.hurt = True
                 self.game.lives.decrease_lives()
                 if self.game.lives.lives == 0:
                     self.game.new_game = False
                     self.game.game_active = False
+
+    def deal_with_injury(self):
+        self.image.fill("red")
+        self.image = pygame.transform.scale(self.image, (self.size + 20, self.size + 20))
+        self.timer += 1
+        if self.timer > 25:
+            self.image.fill("blue")
+            self.timer = 0
+            self.hurt = False
+            self.image = pygame.transform.scale(self.image, (self.size, self.size))
 
     def grow(self):
         self.size += 3
@@ -66,7 +82,6 @@ class Chomper(pygame.sprite.Sprite):
         current_y = self.rect.y
         self.image = pygame.transform.scale(self.image, (self.size, self.size))
         self.rect = self.image.get_rect(topleft=(current_x, current_y))
-        self.image.fill("blue")
 
     def increase_speed(self):
         self.speed += 1
