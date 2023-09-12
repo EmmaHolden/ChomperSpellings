@@ -52,6 +52,6 @@ class GameOver():
         self.teleport_group.add(Teleporter("bottom", self.game))
         self.food.add(Food(self.game))
         self.chomper.add(Chomper(self.game))
-        self.game.timer = 180
+        self.game.hurt_timer = 180
         self.game.spelling_word_shown = False
         self.game.game_active = True

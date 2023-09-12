@@ -26,10 +26,10 @@ class ScreenSetup():
 
 
     def get_timer(self):
-        timer_display = timer_font.render(f'{round(self.game.timer / 60)}', False, "black")
+        timer_display = timer_font.render(f'{round(self.game.hurt_timer / 60)}', False, "black")
         self.game.screen_setup.screen.blit(timer_display, (500, 500))
-        self.game.timer -= 1
-        if self.game.timer < 0:
+        self.game.hurt_timer -= 1
+        if self.game.hurt_timer < 0:
             self.game.spelling_word_shown = True
 
     def get_spelling_word(self):

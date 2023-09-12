@@ -28,12 +28,7 @@ class CollisionHandler():
     def check_enemy_collision(self):
         collision = pygame.sprite.groupcollide(self.chomper, self.enemy_group, False, True)
         if collision:
-            self.chomper.sprite.hurt = True
-            self.chomper.sprite.speed += 5
-            self.game.lives.decrease_lives()
-        if self.game.lives.lives == 0:
-            self.game.new_game = False
-            self.game.game_active = False
+            self.chomper.sprite.harmful_collision()
 
     def check_teleporter_collision(self):
         collisions =  pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False)
