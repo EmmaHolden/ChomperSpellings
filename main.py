@@ -11,6 +11,7 @@ from screen_setup import ScreenSetup
 from teleporter import Teleporter
 from lives import Lives
 from game_over import GameOver
+import pyttsx3
 
 class GameSetup():
     def __init__(self):
@@ -30,6 +31,7 @@ class GameSetup():
         self.lives.get_lives_display()
 
 pygame.init()
+text_speech = pyttsx3.init()
 pygame.display.set_caption("Spelling Chomper Game")
 clock = pygame.time.Clock()
 game = GameSetup()
@@ -53,6 +55,9 @@ while True:
                 if game.game_active == False:
                     if game.new_game:
                         game_over.restart_game()
+                else:
+                    text_speech.say(game.spelling_word)
+                    text_speech.runAndWait()
     if game.game_active:
         if game.spelling_word_shown:
             game.update()

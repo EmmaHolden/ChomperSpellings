@@ -13,7 +13,7 @@ class ScreenSetup():
         self.game_instructions = ['Move the chomper around the screen to catch the letters.',
                                   'Be careful of enemy letters sent to confuse you!',
                                   'The purple blocks are random teleporters.',
-                                  'Press space bar at any time to hear the word.']
+                                  'Press space bar to pause and hear the word.']
         self.game_instruction_surfaces = []
         self.game_instruction_coordinates = [(230, 170), (300, 250), (320, 330), (340, 410)]
         for sentence in self.game_instructions:
