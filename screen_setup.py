@@ -1,5 +1,5 @@
 import pygame
-from game_variables import game_font, instruction_font, word_font, game_colours
+from game_variables import game_font, instruction_font, word_font, timer_font, game_colours
 class ScreenSetup():
     def __init__(self, game):
         self.game = game
@@ -24,11 +24,12 @@ class ScreenSetup():
 
 
     def get_timer(self):
-        timer_display = word_font.render(f'{round(self.game.timer / 60)}', False, "black")
+        timer_display = timer_font.render(f'{round(self.game.timer / 60)}', False, "black")
         self.game.screen_setup.screen.blit(timer_display, (500, 500))
         self.game.timer -= 1
         if self.game.timer < 0:
             self.game.spelling_word_shown = True
+
     def get_spelling_word(self):
         self.spelling_word_display_title = game_font.render("Spelling Word: ", False, "black")
         self.spelling_word_display = word_font.render(f'{self.game.spelling_word}', False, "black")

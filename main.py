@@ -2,7 +2,7 @@ import pygame
 import random
 from sys import exit
 from itertools import product
-from game_variables import game_font, game_colours, x_coordinates, y_coordinates, spelling_words, word_font
+from game_variables import game_font, game_colours, x_coordinates, y_coordinates, spelling_words
 from chomper import Chomper
 from food import Food
 from collision_handler import CollisionHandler

@@ -10,6 +10,8 @@ instruction_font = pygame.font.Font('font/Pixeltype.ttf', 40)
 
 word_font = pygame.font.Font('font/Pixeltype.ttf', 80)
 
+timer_font = pygame.font.Font('font/Pixeltype.ttf', 120)
+
 game_colours = {
     "green": '#00DFA2',
     "blue": '#0079FF',
