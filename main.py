@@ -15,7 +15,7 @@ import pyttsx3
 
 class GameSetup():
     def __init__(self):
-        self.timer = 300
+        self.timer = 180
         self.game_active = False
         self.new_game = True
         self.coordinates = list(product(x_coordinates, y_coordinates))
@@ -36,7 +36,7 @@ pygame.display.set_caption("Spelling Chomper Game")
 clock = pygame.time.Clock()
 game = GameSetup()
 chomper = pygame.sprite.GroupSingle()
-chomper.add(Chomper())
+chomper.add(Chomper(game))
 food = pygame.sprite.GroupSingle()
 food.add(Food(game))
 enemy_group = pygame.sprite.Group()

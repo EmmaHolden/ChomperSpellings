@@ -16,7 +16,7 @@ class GameOver():
     def welcome_screen(self):
         self.game.screen_setup.screen.fill(game_colours["orange"])
         self.game.screen_setup.screen.blit(self.game.screen_setup.title, (500, 70))
-        self.game.screen_setup.screen.blit(self.game.screen_setup.start_instructions, (370, 500))
+        self.game.screen_setup.screen.blit(self.game.screen_setup.start_instructions, (370, 520))
         for i in range(0, len(self.game.screen_setup.game_instruction_surfaces)):
             self.game.screen_setup.screen.blit(self.game.screen_setup.game_instruction_surfaces[i], self.game.screen_setup.game_instruction_coordinates[i])
         self.game.score.get_score(coordinates = (490, 600))
@@ -24,13 +24,13 @@ class GameOver():
 
     def handle_game_over(self):
         self.game.screen_setup.screen.fill(game_colours["orange"])
-        self.game.screen_setup.screen.blit(self.game.screen_setup.start_instructions, (200, 200))
+        self.game.screen_setup.screen.blit(self.game.screen_setup.start_instructions, (300, 300))
         self.game.screen_setup.screen.blit(self.game.screen_setup.title, (500, 70))
         self.game.score.get_score(coordinates=(490, 600))
         if self.game.lives.lives < 1:
-            self.game.screen_setup.screen.blit(self.game.screen_setup.lose_message, (300, 300))
+            self.game.screen_setup.screen.blit(self.game.screen_setup.lose_message, (300, 400))
         else:
-            self.game.screen_setup.screen.blit(self.game.screen_setup.win_message, (300, 300))
+            self.game.screen_setup.screen.blit(self.game.screen_setup.win_message, (300, 400))
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
             self.game.new_game = True
@@ -51,7 +51,7 @@ class GameOver():
         self.teleport_group.add(Teleporter("top", self.game))
         self.teleport_group.add(Teleporter("bottom", self.game))
         self.food.add(Food(self.game))
-        self.chomper.add(Chomper())
-        self.game.timer = 300
+        self.chomper.add(Chomper(self.game))
+        self.game.timer = 180
         self.game.spelling_word_shown = False
         self.game.game_active = True

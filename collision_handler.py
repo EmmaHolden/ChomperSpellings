@@ -34,7 +34,8 @@ class CollisionHandler():
             self.game.game_active = False
 
     def check_teleporter_collision(self):
-        if pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False):
+        collisions =  pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False)
+        if collisions:
             coordinates = []
             for teleporter in self.teleporter_group:
                 coordinates.append(teleporter.coordinates)

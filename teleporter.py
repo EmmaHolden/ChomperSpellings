@@ -17,11 +17,11 @@ class Teleporter(pygame.sprite.Sprite):
         if self.position == "right" or self.position == "left":
             return 20
         else:
-            return 80
+            return 100
 
     def get_length(self):
         if self.position == "right" or self.position == "left":
-            return 80
+            return 100
         else:
             return 20
     def get_coordinates(self):

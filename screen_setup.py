@@ -12,10 +12,12 @@ class ScreenSetup():
         self.start_instructions = game_font.render('Press Space Bar to Play', False, 100)
         self.game_instructions = ['Move the chomper around the screen to catch the letters.',
                                   'Be careful of enemy letters sent to confuse you!',
+                                  'Press space bar to pause and hear the word.',
                                   'The purple blocks are random teleporters.',
-                                  'Press space bar to pause and hear the word.']
+                                  'Do not touch the walls!'
+                                  ]
         self.game_instruction_surfaces = []
-        self.game_instruction_coordinates = [(230, 170), (300, 250), (320, 330), (340, 410)]
+        self.game_instruction_coordinates = [(230, 140), (300, 220), (320, 300), (320, 380), (420, 460)]
         for sentence in self.game_instructions:
             render = instruction_font.render(sentence, False, 50)
             self.game_instruction_surfaces.append(render)
