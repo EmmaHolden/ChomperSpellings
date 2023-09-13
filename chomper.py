@@ -74,12 +74,14 @@ class Chomper(pygame.sprite.Sprite):
             self.game.game_active = False
         self.hurt = True
         self.increase_speed(5)
+        self.image = pygame.image.load('graphics/chomperinjured.png').convert_alpha()
         self.image = pygame.transform.scale(self.image, (self.size + 10, self.size + 10))
     def timed_injury(self):
         self.hurt_timer += 1
         if self.hurt_timer > 25:
             self.hurt_timer = 0
             self.hurt = False
+            self.image = pygame.image.load('graphics/chomper.png').convert_alpha()
             self.image = pygame.transform.scale(self.image, (self.size, self.size))
             self.decrease_speed(5)
 
