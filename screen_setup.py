@@ -13,7 +13,7 @@ class ScreenSetup():
         self.game_instructions = ['Move the chomper around the screen to catch the letters.',
                                   'Be careful of enemy letters sent to confuse you!',
                                   'Pressing space bar stops the game and lets you hear the word.',
-                                  'Purple teleporters give extra points but make Chomper faster.',
+                                  'Purple teleporters give extra points but make the chomper faster.',
                                   'Do not touch the walls!'
                                   ]
         self.game_instruction_surfaces = []
@@ -21,11 +21,20 @@ class ScreenSetup():
         for sentence in self.game_instructions:
             render = instruction_font.render(sentence, False, 50)
             self.game_instruction_surfaces.append(render)
+        self.time_message = game_font.render('Oops! You ran out of time!', False, "black")
         self.lose_message = game_font.render('Oops! You ran out of lives!', False, "black")
         self.win_message = game_font.render('Well done! You got all of the letters!', False, "black")
 
+    def get_game_timer(self):
+        timer_display = game_font.render(f'{round(self.game.game_timer / 60)}', False, "black")
+        self.game.screen_setup.screen.blit(timer_display, (160, 20))
+        self.game.game_timer -= 1
+        if self.game.game_timer <= 0:
+            self.game.game_active = False
+            self.game.new_game = False
 
-    def get_timer(self):
+
+    def get_hurt_timer(self):
         timer_display = timer_font.render(f'{round(self.game.hurt_timer / 60)}', False, "black")
         self.game.screen_setup.screen.blit(timer_display, (500, 500))
         self.game.hurt_timer -= 1
@@ -51,3 +60,4 @@ class ScreenSetup():
         self.screen.blit(self.play_grid, (75, 75))
         self.screen.blit(self.title, (520, 20))
         self.reveal_word()
+        self.get_game_timer()

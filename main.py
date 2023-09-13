@@ -15,7 +15,8 @@ import pyttsx3
 
 class GameSetup():
     def __init__(self):
-        self.timer = 180
+        self.hurt_timer = 180
+        self.game_timer = 3600
         self.game_active = False
         self.new_game = True
         self.coordinates = list(product(x_coordinates, y_coordinates))
@@ -72,7 +73,7 @@ while True:
         else:
             game.screen_setup.screen.fill(game_colours["red"])
             game.screen_setup.get_spelling_word()
-            game.screen_setup.get_timer()
+            game.screen_setup.get_hurt_timer()
     else:
         if game.new_game:
             game_over.welcome_screen()

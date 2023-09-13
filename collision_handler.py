@@ -14,7 +14,7 @@ class CollisionHandler():
     def check_food_collision(self):
         if pygame.sprite.groupcollide(self.chomper, self.food, False, False):
             self.game.current_letter_index += 1
-            self.game.score.increase_score()
+            self.game.score.increase_score(10)
             if self.game.current_letter_index < len(self.game.spelling_word):
                 self.chomper.sprite.grow()
                 self.chomper.sprite.increase_speed(1)
@@ -48,8 +48,8 @@ class CollisionHandler():
     def check_teleporter_collision(self):
         collisions =  pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False)
         if collisions:
-            self.game.score.increase_score()
-            self.chomper.sprite.increase_speed(1)
+            self.game.score.increase_score(2)
+            self.chomper.sprite.increase_speed(0.25)
             teleporter = self.check_which_teleporter()
             self.chomper.sprite.direction = teleporter.position
             self.chomper.sprite.rect.x = self.chomper.sprite.find_new_x_coordinate(teleporter)

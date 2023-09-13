@@ -29,6 +29,8 @@ class GameOver():
         self.game.score.get_score(coordinates=(490, 600))
         if self.game.lives.lives < 1:
             self.game.screen_setup.screen.blit(self.game.screen_setup.lose_message, (300, 400))
+        elif self.game.game_timer <= 0:
+            self.game.screen_setup.screen.blit(self.game.screen_setup.time_message, (300, 400))
         else:
             self.game.screen_setup.screen.blit(self.game.screen_setup.win_message, (300, 400))
         keys = pygame.key.get_pressed()
@@ -55,6 +57,7 @@ class GameOver():
         self.teleport_group.add(left_teleporter, right_teleporter, top_teleporter, bottom_teleporter)
         self.food.add(Food(self.game))
         self.chomper.add(Chomper(self.game))
+        self.game.game_timer = 3600
         self.game.hurt_timer = 180
         self.game.spelling_word_shown = False
         self.game.game_active = True

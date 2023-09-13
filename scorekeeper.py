@@ -7,6 +7,6 @@ class Scorekeeper():
     def get_score(self, coordinates):
         self.score_display = game_font.render(f'Score:  {self.score}', False, "black")
         self.game.screen_setup.screen.blit(self.score_display, coordinates)
-    def increase_score(self):
-        self.score += 1
+    def increase_score(self, amount):
+        self.score += amount
 
