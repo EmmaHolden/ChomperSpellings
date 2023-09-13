@@ -46,10 +46,13 @@ class GameOver():
         self.chomper.sprite.kill()
         self.game.current_letter_index = 0
         self.game.lives.lives = 3
-        self.teleport_group.add(Teleporter("left", self.game))
-        self.teleport_group.add(Teleporter("right", self.game))
-        self.teleport_group.add(Teleporter("top", self.game))
-        self.teleport_group.add(Teleporter("bottom", self.game))
+        left_teleporter = Teleporter("left", self.game)
+        right_teleporter = Teleporter("right", self.game)
+        top_teleporter = Teleporter("up", self.game)
+        bottom_teleporter = Teleporter("down", self.game)
+        left_teleporter.get_opposite(right_teleporter)
+        top_teleporter.get_opposite(bottom_teleporter)
+        self.teleport_group.add(left_teleporter, right_teleporter, top_teleporter, bottom_teleporter)
         self.food.add(Food(self.game))
         self.chomper.add(Chomper(self.game))
         self.game.hurt_timer = 180

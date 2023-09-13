@@ -13,6 +13,9 @@ class Teleporter(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=self.coordinates)
         self.image.fill(game_colours["purple"])
 
+    def get_opposite(self, opposite):
+        self.opposite = opposite
+        opposite.opposite = self
     def get_width(self):
         if self.position == "right" or self.position == "left":
             return 20
@@ -29,9 +32,9 @@ class Teleporter(pygame.sprite.Sprite):
             return (85, self.get_random_coordinate(200, 500))
         elif self.position == "right":
             return (1125, self.get_random_coordinate(200, 500))
-        elif self.position == "top":
+        elif self.position == "up":
             return (self.get_random_coordinate(200, 1000), 85)
-        elif self.position == "bottom":
+        elif self.position == "down":
             return (self.get_random_coordinate(200, 1000), 615)
     def get_random_coordinate(self, lower, upper):
         return random.randint(lower, upper)

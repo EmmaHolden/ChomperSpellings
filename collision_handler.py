@@ -32,33 +32,27 @@ class CollisionHandler():
         if collision:
             self.chomper.sprite.harmful_collision()
 
+    def check_which_teleporter(self):
+        for teleporter in self.teleporter_group:
+            if teleporter.rect.colliderect(self.chomper.sprite.rect):
+                return teleporter
+
+    def find_new_x_coordinate(self, teleporter):
+        if self.chomper.sprite.direction == "up" or self.chomper.sprite.direction == "down":
+            return teleporter.opposite.rect.x
+        elif self.chomper.sprite.direction == "left":
+            return teleporter.opposite.rect.x - 50
+        elif self.chomper.sprite.direction == "right":
+            return teleporter.oppposite.rect.x + 50
+
     def check_teleporter_collision(self):
         collisions =  pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False)
         if collisions:
-            coordinates = []
-            for teleporter in self.teleporter_group:
-                coordinates.append(teleporter.coordinates)
-            random_coordinates_found = False
-            while not random_coordinates_found:
-                random_coordinates = random.choice(coordinates)
-                if not random_coordinates[0] - 30 < self.chomper.sprite.rect.x < random_coordinates[0] + 30 and not random_coordinates[1] - 30 < self.chomper.sprite.rect.y < random_coordinates[1] + 30:
-                    random_coordinates_found = True
-            if random_coordinates[0] == 85:
-                self.chomper.sprite.direction = "right"
-                self.chomper.sprite.rect.x = random_coordinates[0] + 50
-                self.chomper.sprite.rect.y = random_coordinates[1]
-            elif random_coordinates[0] == 1125:
-                self.chomper.sprite.direction = "left"
-                self.chomper.sprite.rect.x = random_coordinates[0] - 50
-                self.chomper.sprite.rect.y = random_coordinates[1]
-            elif random_coordinates[1] == 85:
-                self.chomper.sprite.direction = "down"
-                self.chomper.sprite.rect.x = random_coordinates[0]
-                self.chomper.sprite.rect.y = random_coordinates[1] + 50
-            else:
-                self.chomper.sprite.direction = "up"
-                self.chomper.sprite.rect.x = random_coordinates[0]
-                self.chomper.sprite.rect.y = random_coordinates[1] - 50
+            teleporter = self.check_which_teleporter()
+            self.chomper.sprite.direction = teleporter.position
+            self.chomper.sprite.rect.x = self.chomper.sprite.find_new_x_coordinate(teleporter)
+            self.chomper.sprite.rect.y = self.chomper.sprite.find_new_y_coordinate(teleporter)
+
 
     def update(self):
         self.check_food_collision()

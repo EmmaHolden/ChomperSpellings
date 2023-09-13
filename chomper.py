@@ -5,12 +5,13 @@ class Chomper(pygame.sprite.Sprite):
         self.hurt_timer = 0
         self.hurt = False
         self.game = game
-        self.speed = 6
+        self.speed = 4
         self.direction = "right"
-        self.size = 20
-        self.image = pygame.Surface((self.size, self.size))
+        self.size = 50
+        self.image = pygame.image.load('graphics/chomper.png').convert_alpha()
+        self.image = pygame.transform.scale(self.image, (self.size, self.size))
         self.rect = self.image.get_rect(topleft=(400, 400))
-        self.image.fill("blue")
+
 
     def change_direction(self):
         keys = pygame.key.get_pressed()
@@ -50,6 +51,22 @@ class Chomper(pygame.sprite.Sprite):
                 self.hurt = True
                 self.harmful_collision()
 
+    def find_new_x_coordinate(self, teleporter):
+        if teleporter.opposite.position == "up" or teleporter.opposite.position == "down":
+            return teleporter.opposite.rect.x
+        elif teleporter.opposite.position == "left":
+            return teleporter.opposite.rect.x + 50
+        elif teleporter.opposite.position == "right":
+            return teleporter.opposite.rect.x - 50
+
+    def find_new_y_coordinate(self, teleporter):
+        if teleporter.opposite.position == "left" or teleporter.opposite.position == "right":
+            return teleporter.opposite.rect.y
+        elif teleporter.opposite.position == "up":
+            return teleporter.opposite.rect.y + 50
+        elif teleporter.opposite.position == "down":
+            return teleporter.opposite.rect.y - 50
+
     def harmful_collision(self):
         self.game.lives.decrease_lives()
         if self.game.lives.lives == 0:
@@ -57,12 +74,10 @@ class Chomper(pygame.sprite.Sprite):
             self.game.game_active = False
         self.hurt = True
         self.increase_speed(5)
-        self.image.fill("red")
         self.image = pygame.transform.scale(self.image, (self.size + 10, self.size + 10))
     def timed_injury(self):
         self.hurt_timer += 1
         if self.hurt_timer > 25:
-            self.image.fill("blue")
             self.hurt_timer = 0
             self.hurt = False
             self.image = pygame.transform.scale(self.image, (self.size, self.size))
