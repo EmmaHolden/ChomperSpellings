@@ -48,6 +48,8 @@ class CollisionHandler():
     def check_teleporter_collision(self):
         collisions =  pygame.sprite.groupcollide(self.chomper, self.teleporter_group, False, False)
         if collisions:
+            self.game.score.increase_score()
+            self.chomper.sprite.increase_speed(1)
             teleporter = self.check_which_teleporter()
             self.chomper.sprite.direction = teleporter.position
             self.chomper.sprite.rect.x = self.chomper.sprite.find_new_x_coordinate(teleporter)
